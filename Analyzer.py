@@ -45,11 +45,20 @@ def naiveBestPath(path, path1):
         return path1[0] - path[0]
     return 0
 
+def leastElite(path, path1):
+    path = infoFromPath(path)
+    path1 = infoFromPath(path1)
+    if path[4] != path1[4]:
+        return path1[4] - path[4]
+    if path[2] != path1[2]:
+        return path[2] - path1[2]
+    if path[3] != path1[3]:
+        return path[3] - path1[3]
+    if path[0] != path1[0]:
+        return path1[0] - path[0]
+    return 0
 
 def getMostRestAtLeastOneShop(allPaths):
-    pass
-
-def getNoElite(allPaths):
     pass
 
 with open("AssignedMaps.json", "r") as file:
@@ -68,7 +77,7 @@ with tqdm(total=len(data)) as pbar:
     pbar.set_description("Analyzing maps")
     for map in data:
         allPaths = getAllPossiblePaths(map)
-        path = max(allPaths, key=cmp_to_key(naiveBestPath))
+        path = max(allPaths, key=cmp_to_key(leastElite))
         typeNum = infoFromPath(path)
         pathData["Monsters"].append(typeNum[0])
         pathData["Unknowns"].append(typeNum[1])
@@ -98,7 +107,7 @@ plt.plot(x, nums[1], color=(0, 0, 0), marker='o', label="Unknowns")
 plt.plot(x, nums[2], color=(0.5, 0, 0.5), marker='o', label="Rests")
 plt.plot(x, nums[3], color=(0.5, 0.5, 0), marker='o', label="Shops")
 plt.plot(x, nums[4], color=(1, 0, 0), marker='o', label="Elites")
-plt.title("Naive Best Path Type Distributions")
+plt.title("Least Elite Path Type Distributions")
 plt.xlabel("Number")
 plt.ylabel("Probability")
 plt.legend()
