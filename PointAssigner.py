@@ -9,6 +9,7 @@ mapLength = 15
 mapWidth = 7
 ascension1 = True
 ascension6 = True
+lessUnknowns = False
 
 def GaussianInt(mean: int, stdDev: int, min: int, max: int):
     while True:
@@ -37,6 +38,8 @@ def getNumOfElites():
 
 def getNumOfUnknowns():
     res = GaussianInt(12, 1, 10, 14)
+    if lessUnknowns:
+        res -= 1
     return res
 
 def validPointType(map, assigned: dict, point, type, pIndex) -> bool:

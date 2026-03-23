@@ -32,7 +32,7 @@ def VisualizeMap():
     image = np.zeros((1500, 700, 4), dtype=np.uint8)
     with open("Maps.json", "r") as file:
         data = json.load(file)
-    map = data[-1]
+    map = data[1827]
     visited = [False for _ in range(len(map))]
     queue, queue1 = [map[0]], []
     while len(queue) > 0:
@@ -70,5 +70,5 @@ def VisualizeAssignedMap():
     cv2.imwrite("AssignedMap.png", image)
     cv2.waitKey(0)
 
-#VisualizeMap()
-VisualizeAssignedMap()
+VisualizeMap()
+#VisualizeAssignedMap()
